@@ -14,4 +14,4 @@
 
 ## About
 
-CTF-Infra is currently in early Alpha. Branch `master` is not guaranteed to be stable and breaking changes may be introducted without notice.
+CTF-Infrastructure is currently in early Alpha. Branch `master` is not guaranteed to be stable and breaking changes may be introducted without notice.
