@@ -1,0 +1,44 @@
+name: "Terraform"
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  terraform:
+    name: "Terraform"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src/infra
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup CI
+        run: .github/workflows/resources/setupci.sh
+        working-directory: .
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: true
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        if: github.event_name == 'pull_request'
+        run: terraform plan -no-color
+        continue-on-error: true
