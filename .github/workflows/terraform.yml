@@ -79,7 +79,7 @@ jobs:
           api-key: ${{ secrets.INFRACOST_API_KEY }}
 
       - name: Generate Infracost JSON
-        run: infracost breakdown --path=plan.json --format json
+        run: infracost breakdown --path=plan.json --format json --out-file /tmp/infracost.json
 
       - name: Post Infracost comment
         run: |
