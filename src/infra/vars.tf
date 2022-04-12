@@ -39,7 +39,6 @@ variable "instance_profile_name" {
 
 variable "my_public_ip_cidr" {
   type        = string
-  default     = "23.16.122.44/32"
   description = "My public ip CIDR"
 }
 

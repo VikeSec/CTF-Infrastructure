@@ -42,3 +42,53 @@ jobs:
         if: github.event_name == 'pull_request'
         run: terraform plan -no-color
         continue-on-error: true
+
+  infracost:
+    runs-on: ubuntu-latest
+    name: Run Infracost
+    needs: terraform
+    if: github.event_name == 'pull_request'
+    defaults:
+      run:
+        working-directory: ./src/infra
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Setup CI
+        run: .github/workflows/resources/setupci.sh
+        working-directory: .
+
+      - name: Install terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false # This is recommended so the `terraform show` command outputs valid JSON
+
+      - name: Terraform init
+        run: terraform init
+
+      - name: Terraform plan
+        run: terraform plan -out tfplan.binary
+
+      - name: Terraform show
+        run: terraform show -json tfplan.binary > plan.json
+
+      - name: Setup Infracost
+        uses: infracost/actions/setup@v1
+        with:
+          api-key: ${{ secrets.INFRACOST_API_KEY }}
+
+      - name: Generate Infracost JSON
+        run: infracost breakdown --path=plan.json --format json --out-file /tmp/infracost.json
+
+      - name: Exit on no Infra diff
+        run: echo "DIFF=`jq -r '.projects[0].diff.resources | length' /tmp/infracost.json`" >> $GITHUB_ENV
+
+      - name: Post Infracost comment
+        if: ${{ env.DIFF != '0' }}
+        run: |
+          infracost comment github --path /tmp/infracost.json \
+                                   --repo $GITHUB_REPOSITORY \
+                                   --github-token ${{github.token}} \
+                                   --pull-request ${{github.event.pull_request.number}} \
+                                   --behavior update
