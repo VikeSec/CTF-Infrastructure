@@ -7,7 +7,7 @@
 	Bootstrap CTFd Infrastructure with One Command
 </h4>
 <p align="center">
-	<a href="https://github.com/Vikaxe/CTF-Infra/commits"><img src="https://img.shields.io/github/last-commit/Vikaxe/CTF-Infra?style=for-the-badge" alt="Last Github Commit"></a>
+	<a href="https://github.com/VikeSec/CTF-Infrastructure/commits"><img src="https://img.shields.io/github/last-commit/VikeSec/CTF-Infrastructure?style=for-the-badge" alt="Last Github Commit"></a>
 </p>
 
 ---
