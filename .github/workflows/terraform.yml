@@ -55,7 +55,6 @@ jobs:
 
       - name: Setup CI
         run: .github/workflows/resources/setupci.sh
-        working-directory: .
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
@@ -64,6 +63,9 @@ jobs:
         uses: infracost/actions/setup@v1
         with:
           api-key: ${{ secrets.INFRACOST_API_KEY }}
+
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
 
       - name: Infracost on master
         run: >-
@@ -83,8 +85,10 @@ jobs:
                               --compare-to /tmp/infracost-master.json
                               --out-file /tmp/infracost.json
 
+      # - name: Exit on no Infra diff
+      #   run: echo "DIFF=`jq -r '.projects[0].diff.resources | length' /tmp/infracost.json`" >> $GITHUB_ENV
+
       - name: Post Infracost comment
-        if: ${{ env.DIFF != '0' }}
         run: |
           infracost comment github --path /tmp/infracost.json \
                                    --repo $GITHUB_REPOSITORY \
