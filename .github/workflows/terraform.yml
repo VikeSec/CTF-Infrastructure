@@ -46,7 +46,6 @@ jobs:
   infracost:
     runs-on: ubuntu-latest
     name: Run Infracost
-    needs: terraform
     if: github.event_name == 'pull_request'
     steps:
       - name: Checkout master
