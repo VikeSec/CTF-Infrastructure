@@ -53,36 +53,31 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.base.ref }}
 
-      - name: Setup CI
-        run: .github/workflows/resources/setupci.sh
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-
       - name: Setup Infracost
         uses: infracost/actions/setup@v1
         with:
           api-key: ${{ secrets.INFRACOST_API_KEY }}
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-
       - name: Infracost on master
-        run: >-
-          infracost breakdown --path src/infra
-                              --terraform-parse-hcl
-                              --format json
+        run: |
+          infracost breakdown --path src/infra \
+                              --terraform-parse-hcl \
+                              --format json \
                               --out-file /tmp/infracost-master.json
+
+      - name: Setup tmate session
+        if: ${{ failure() }}
+        uses: mxschmitt/action-tmate@v3
 
       - name: Checkout PR branch
         uses: actions/checkout@v3
 
       - name: Infracost on PR branch
-        run: >-
-          infracost breakdown --path src/infra
-                              --terraform-parse-hcl
-                              --format json
-                              --compare-to /tmp/infracost-master.json
+        run: |
+          infracost breakdown --path src/infra \
+                              --terraform-parse-hcl \
+                              --format json \
+                              --compare-to /tmp/infracost-master.json \
                               --out-file /tmp/infracost.json
 
       # - name: Exit on no Infra diff
