@@ -65,10 +65,6 @@ jobs:
                               --format json \
                               --out-file /tmp/infracost-master.json
 
-      - name: Setup tmate session
-        if: ${{ failure() }}
-        uses: mxschmitt/action-tmate@v3
-
       - name: Checkout PR branch
         uses: actions/checkout@v3
 
@@ -80,8 +76,8 @@ jobs:
                               --compare-to /tmp/infracost-master.json \
                               --out-file /tmp/infracost.json
 
-      # - name: Exit on no Infra diff
-      #   run: echo "DIFF=`jq -r '.projects[0].diff.resources | length' /tmp/infracost.json`" >> $GITHUB_ENV
+      - name: Exit on no Infra diff
+        run: echo "DIFF=`jq -r '.projects[0].diff.resources | length' /tmp/infracost.json`" >> $GITHUB_ENV
 
       - name: Post Infracost comment
         run: |
