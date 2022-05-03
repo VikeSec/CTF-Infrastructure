@@ -80,6 +80,7 @@ jobs:
         run: echo "DIFF=`jq -r '.projects[0].diff.resources | length' /tmp/infracost.json`" >> $GITHUB_ENV
 
       - name: Post Infracost comment
+        if: ${{ env.DIFF != '0' }}
         run: |
           infracost comment github --path /tmp/infracost.json \
                                    --repo $GITHUB_REPOSITORY \
