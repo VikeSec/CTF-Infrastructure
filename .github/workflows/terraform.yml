@@ -90,38 +90,34 @@ jobs:
     name: Run Infracost
     needs: terraform_validate
     if: github.event_name == 'pull_request'
-    defaults:
-      run:
-        working-directory: ./src/infra
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
-
-      - name: Setup CI
-        run: .github/workflows/resources/setupci.sh
-        working-directory: .
-
-      - name: Install terraform
-        uses: hashicorp/setup-terraform@v1
+      - name: Checkout master
+        uses: actions/checkout@v3
         with:
-          terraform_wrapper: false # This is recommended so the `terraform show` command outputs valid JSON
-
-      - name: Terraform init
-        run: terraform init
-
-      - name: Terraform plan
-        run: terraform plan -out tfplan.binary
-
-      - name: Terraform show
-        run: terraform show -json tfplan.binary > plan.json
+          ref: ${{ github.event.pull_request.base.ref }}
 
       - name: Setup Infracost
         uses: infracost/actions/setup@v1
         with:
           api-key: ${{ secrets.INFRACOST_API_KEY }}
 
-      - name: Generate Infracost JSON
-        run: infracost breakdown --path=plan.json --format json --out-file /tmp/infracost.json
+      - name: Infracost on master
+        run: |
+          infracost breakdown --path src/infra \
+                              --terraform-parse-hcl \
+                              --format json \
+                              --out-file /tmp/infracost-master.json
+
+      - name: Checkout PR branch
+        uses: actions/checkout@v3
+
+      - name: Infracost on PR branch
+        run: |
+          infracost diff --path src/infra \
+                              --terraform-parse-hcl \
+                              --format json \
+                              --compare-to /tmp/infracost-master.json \
+                              --out-file /tmp/infracost.json
 
       - name: Exit on no Infra diff
         run: echo "DIFF=`jq -r '.projects[0].diff.resources | length' /tmp/infracost.json`" >> $GITHUB_ENV
