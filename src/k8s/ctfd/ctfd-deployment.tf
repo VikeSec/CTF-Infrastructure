@@ -1,3 +1,13 @@
+resource "kubernetes_namespace" "ctfd" {
+  metadata {
+    labels = {
+      app = "ctfd"
+    }
+
+    name = "ctfd"
+  }
+}
+
 resource "kubernetes_persistent_volume_claim" "ctf_pv_logs" {
   metadata {
     name      = "ctf-pv-logs"
