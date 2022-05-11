@@ -13,6 +13,11 @@ k8s:
 - src/k8s/*
 - src/k8s/**/*
 
+# Add 'ctfd' label to any change within src/k8s/ctfd
+ctfd:
+- src/k8s/ctfd/*
+- src/k8s/ctfd/**/*
+
 # Add 'documentation' label to any changes to a markdown file
 documentation:
 - '**/*.md'
