@@ -1,0 +1,8 @@
+# Default repo owners
+*       @VikeSec/infra
+
+# Changes to Terraform files will require approval from @VikeSec/infra
+*.tf    @VikeSec/infra
+
+# Changes to GH workflows will require approval from @VikeSec/infra
+.github/workflows/* @VikeSec/infra
