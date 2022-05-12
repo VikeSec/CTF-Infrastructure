@@ -1,9 +1,5 @@
 resource "kubernetes_namespace" "ctfd" {
   metadata {
-    labels = {
-      app = "ctfd"
-    }
-
     name = "ctfd"
   }
 }
