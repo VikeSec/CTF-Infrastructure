@@ -22,7 +22,7 @@ jobs:
         working-directory: ./src/infra
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
@@ -40,7 +40,7 @@ jobs:
         working-directory: ./src/infra
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup CI
         run: .github/workflows/resources/setupci.sh
@@ -66,7 +66,7 @@ jobs:
         working-directory: ./src/infra
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup CI
         run: .github/workflows/resources/setupci.sh
@@ -120,13 +120,13 @@ jobs:
                               --out-file /tmp/infracost.json
 
       - name: Exit on no Infra diff
-        run: echo "DIFF=`jq -r '.projects[0].diff.resources | length' /tmp/infracost.json`" >> $GITHUB_ENV
+        run: echo "DIFF=$(jq -r '.projects[0].diff.resources | length' /tmp/infracost.json)" >> "$GITHUB_ENV"
 
       - name: Post Infracost comment
         if: ${{ env.DIFF != '0' }}
         run: |
           infracost comment github --path /tmp/infracost.json \
-                                   --repo $GITHUB_REPOSITORY \
-                                   --github-token ${{github.token}} \
-                                   --pull-request ${{github.event.pull_request.number}} \
+                                   --repo "$GITHUB_REPOSITORY" \
+                                   --github-token "${{github.token}}" \
+                                   --pull-request "${{github.event.pull_request.number}}" \
                                    --behavior update
