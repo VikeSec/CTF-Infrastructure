@@ -24,4 +24,4 @@ jobs:
         with:
           checks: "files,owners,duppatterns,syntax"
           experimental_checks: "notowned,avoid-shadowing"
-          github_access_token: "${{ secrets.OWNERS_VALIDATOR_GITHUB_SECRET }}"
+          github_access_token: "${{ secrets.GITHUB_TOKEN }}"
