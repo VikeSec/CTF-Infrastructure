@@ -18,10 +18,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: GitHub CODEOWNERS Validator
         uses: mszostok/codeowners-validator@v0.7.4
         with:
           checks: "files,owners,duppatterns,syntax"
           experimental_checks: "notowned,avoid-shadowing"
           github_access_token: "${{ secrets.CODEOWNERS_VALIDATOR_GITHUB_SECRET }}"
+
+  actionlint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Download actionlint
+        id: get_actionlint
+        run: bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+        shell: bash
+      - name: Run actionlint
+        run: ${{ steps.get_actionlint.outputs.executable }} -color
+        shell: bash
