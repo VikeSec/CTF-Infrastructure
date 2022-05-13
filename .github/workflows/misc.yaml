@@ -1,20 +1,26 @@
 name: "Misc"
 
 on:
+  push:
+    branches:
+      - master
   pull_request:
 
 jobs: 
-  labeler: 
+  labeler:
+    name: PR Labeler
     permissions: 
       contents: read
       pull-requests: write
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
     steps: 
       - uses: actions/labeler@v4
         with: 
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
 
   codeowners:
+    name: CODEOWNERS Validation
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -27,6 +33,7 @@ jobs:
           github_access_token: "${{ secrets.CODEOWNERS_VALIDATOR_GITHUB_SECRET }}"
 
   actionlint:
+    name: Action Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -34,7 +41,14 @@ jobs:
       - name: Download actionlint
         id: get_actionlint
         run: bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
-        shell: bash
       - name: Run actionlint
         run: ${{ steps.get_actionlint.outputs.executable }} -color
-        shell: bash
+
+  shellcheck:
+    name: Shellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@1.1.0
