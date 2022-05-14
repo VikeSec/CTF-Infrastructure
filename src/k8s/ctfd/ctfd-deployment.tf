@@ -99,7 +99,7 @@ resource "kubernetes_deployment" "ctfd" {
 
         container {
           name  = "ctfd"
-          image = "rdctf/ctfd"
+          image = "ctfd/ctfd"
 
           env {
             name  = "ACCESS_LOG"
@@ -174,7 +174,7 @@ resource "kubernetes_service" "ctfd" {
 
   spec {
     port {
-      name        = "ui"
+      name        = "CTFd UI"
       protocol    = "TCP"
       port        = 8000
       target_port = 8000
