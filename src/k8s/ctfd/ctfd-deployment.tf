@@ -174,7 +174,7 @@ resource "kubernetes_service" "ctfd" {
 
   spec {
     port {
-      name        = "CTFd UI"
+      name        = "ctfd"
       protocol    = "TCP"
       port        = 8000
       target_port = 8000
