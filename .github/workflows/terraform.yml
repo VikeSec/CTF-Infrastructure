@@ -103,6 +103,8 @@ jobs:
 
       - name: Infracost on master
         run: |
+          pwd
+          ls
           infracost breakdown --path src \
                               --terraform-parse-hcl \
                               --format json \
