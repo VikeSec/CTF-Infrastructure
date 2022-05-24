@@ -114,10 +114,10 @@ jobs:
       - name: Infracost on PR branch
         run: |
           infracost diff --path src/ \
-                              --terraform-parse-hcl \
-                              --format json \
-                              --compare-to /tmp/infracost-master.json \
-                              --out-file /tmp/infracost.json
+                         --terraform-parse-hcl \
+                         --format json \
+                         --compare-to /tmp/infracost-master.json \
+                         --out-file /tmp/infracost.json
 
       - name: Exit on no Infra diff
         run: echo "DIFF=$(jq -r '.projects[0].diff.resources | length' /tmp/infracost.json)" >> "$GITHUB_ENV"
