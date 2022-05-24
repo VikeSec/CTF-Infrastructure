@@ -67,7 +67,6 @@ variable "local_ingress_ports" {
   default     = [1025, 6443]
 }
 
-
 # tr -dc "[:alnum:]" < /dev/urandom | head -c52; echo
 variable "k3s_token" {
   default     = "B6RmE8qHSDcLdIQGGNByF1D2ikZuVmsCUUWj2ZbH39FMO1L02v4O"

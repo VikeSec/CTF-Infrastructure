@@ -13,4 +13,4 @@ cat > /tmp/AWS.mock << EOF
   secret_key                  = "mock_secret_key"
 EOF
 
-sed -i '4 e sed -n 1,6p /tmp/AWS.mock' src/infra/provider.tf
+sed -i '17 e sed -n 1,6p /tmp/AWS.mock' src/provider.tf
