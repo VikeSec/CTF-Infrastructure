@@ -1,31 +1,29 @@
 ---
-name: Bug report
-about: Create a report to help us improve
-title: "[BUG] "
+name: 🐛 Bug Report
+about: If something isn't working as expected 🤔.
 labels: bug
-assignees: ''
 
 ---
 
 **Describe the bug**
-A clear and concise description of what the bug is.
+<!-- A clear and concise description of what the bug is. -->
 
 **To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+Steps to reproduce the behaviour:
+1. Run command `....`
+2. Go to `...`
+3. See error
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+**Expected behaviour**
+<!-- A clear and concise description of what you expected to happen. -->
 
 **Screenshots**
-If applicable, add screenshots to help explain your problem.
+<!-- If applicable, add screenshots to help explain your problem. -->
 
-**Desktop (please complete the following information):**
+**Desktop Versions:**
+<!-- Please complete the following information -->
  - OS: [e.g. Linux AMD64]
- - Terraform Version [e.g. v1.1.9]
+ - Terraform Version: [e.g. v1.1.9]
 
 **Additional context**
-Add any other context about the problem here.
+<!-- Add any other context about the problem here. -->
