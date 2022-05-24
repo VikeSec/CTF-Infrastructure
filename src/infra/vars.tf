@@ -1,4 +1,5 @@
 variable "AWS_REGION" {
+  default     = "us-west-1"
   description = "AWS Zone"
 }
 
@@ -65,7 +66,6 @@ variable "local_ingress_ports" {
   description = "list of local ingress ports"
   default     = [1025, 6443]
 }
-
 
 # tr -dc "[:alnum:]" < /dev/urandom | head -c52; echo
 variable "k3s_token" {
