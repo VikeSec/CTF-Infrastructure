@@ -4,15 +4,6 @@
 <!-- Replace `XX` with the concerning issue number. -->
 Closes #XX
 
-## Screenshots
-<!-- Delete this section if changes do not require screenshots -->
-
-### Before
-<!-- Add before screenshots when applicable. -->
-
-### After
-<!-- Add after screenshots when applicable. -->
-
 ## Checklist
 
 - [ ] The code follows all style guidelines.
@@ -22,5 +13,4 @@ Closes #XX
 - [ ] I have self-reviewed my changes and have done QA.
 
 ## General Comments
-
 <!-- Optional - Add anything else you would like to add to the Pull Request -->

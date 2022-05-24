@@ -21,3 +21,4 @@ ctfd:
 # Add 'documentation' label to any changes to a markdown file
 documentation:
 - '**/*.md'
+- '.**/*.md'

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: CTF Infrastructure Roadmap
+    url: https://github.com/orgs/VikeSec/projects/2
+    about: View the Roadmap for the upcoming work planned for the Infrastructure team.
+  - name: CTF Infrastructure Questions
+    url: https://github.com/VikeSec/CTF-Infrastructure/discussions
+    about: GitHub issues in this repository are only intended for bug reports and feature requests. Other issues will be closed. Please ask and answer questions through Github Discussions.
