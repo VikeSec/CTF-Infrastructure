@@ -137,7 +137,7 @@ jobs:
     needs: terraform_validate
     steps:
       - name: Checkout code
-        uses: actions/checkout@master
+        uses: actions/checkout@v3
 
       - name: tfsec
         uses: aquasecurity/tfsec-sarif-action@v0.1.0
