@@ -103,7 +103,7 @@ jobs:
 
       - name: Infracost on master
         run: |
-          infracost breakdown --path src/infra \
+          infracost breakdown --path src/ \
                               --terraform-parse-hcl \
                               --format json \
                               --out-file /tmp/infracost-master.json
@@ -113,7 +113,7 @@ jobs:
 
       - name: Infracost on PR branch
         run: |
-          infracost diff --path src/infra \
+          infracost diff --path src/ \
                               --terraform-parse-hcl \
                               --format json \
                               --compare-to /tmp/infracost-master.json \
