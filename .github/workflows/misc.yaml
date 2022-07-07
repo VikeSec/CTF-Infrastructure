@@ -64,3 +64,4 @@ jobs:
           github_token: ${{ secrets.github_token }}
           language: en-CA
           level: warning
+          fail_on_error: true
