@@ -102,9 +102,7 @@ jobs:
 
       - name: Infracost on master
         run: |
-          infracost breakdown --path src/ \
-                              --format json \
-                              --out-file /tmp/infracost-master.json
+          infracost breakdown --path src/
 
       - name: Checkout PR branch
         uses: actions/checkout@v3
