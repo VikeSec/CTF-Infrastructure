@@ -45,7 +45,7 @@ jobs:
           fail_on_error: true
 
   shellcheck:
-    name: Shellcheck
+    name: YAML Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
