@@ -31,6 +31,22 @@ jobs:
         id: fmt
         run: terraform fmt -check
 
+  tflint:
+    name: "TF Lint"
+    runs-on: ubuntu-latest
+    needs: terraform_mod
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: tflint
+        uses: reviewdog/action-tflint@v1.17.0
+        with:
+          github_token: ${{ secrets.github_token }}
+          working_directory: "./src"
+          fail_on_error: "true"
+          filter_mode: "nofilter"
+
   terraform_validate:
     name: "Terraform Validate"
     runs-on: ubuntu-latest
