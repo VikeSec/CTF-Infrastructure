@@ -39,6 +39,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Setup CI
+        run: .github/workflows/resources/setupci.sh
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Init
+        run: terraform init
+
       - name: tflint
         uses: reviewdog/action-tflint@v1.17.0
         with:
@@ -46,6 +55,7 @@ jobs:
           working_directory: "./src"
           fail_on_error: "true"
           filter_mode: "nofilter"
+          level: "warning"
 
   terraform_validate:
     name: "Terraform Validate"
