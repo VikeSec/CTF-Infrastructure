@@ -89,7 +89,6 @@ jobs:
     runs-on: ubuntu-latest
     name: Run Infracost
     needs: terraform_validate
-    if: github.event_name == 'pull_request'
     steps:
       - name: Checkout master
         uses: actions/checkout@v3
@@ -104,26 +103,32 @@ jobs:
       - name: Infracost on master
         run: |
           infracost breakdown --path src/ \
-                              --terraform-parse-hcl \
                               --format json \
                               --out-file /tmp/infracost-master.json
 
       - name: Checkout PR branch
         uses: actions/checkout@v3
 
-      - name: Infracost on PR branch
+      - name: Infracost on commit
+        if: github.event_name == 'pull_request'
         run: |
           infracost diff --path src/ \
-                         --terraform-parse-hcl \
+                         --compare-to /tmp/infracost-master.json \
+
+      - name: Infracost on PR branch
+        if: github.event_name == 'pull_request'
+        run: |
+          infracost diff --path src/ \
                          --format json \
                          --compare-to /tmp/infracost-master.json \
                          --out-file /tmp/infracost.json
 
       - name: Exit on no Infra diff
+        if: github.event_name == 'pull_request'
         run: echo "DIFF=$(jq -r '.projects[0].diff.resources | length' /tmp/infracost.json)" >> "$GITHUB_ENV"
 
       - name: Post Infracost comment
-        if: ${{ env.DIFF != '0' }}
+        if: ${{ env.DIFF != '0' && github.event_name == 'pull_request' }}
         run: |
           infracost comment github --path /tmp/infracost.json \
                                    --repo "$GITHUB_REPOSITORY" \
