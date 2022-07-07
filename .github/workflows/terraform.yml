@@ -102,7 +102,9 @@ jobs:
 
       - name: Infracost on master
         run: |
-          infracost breakdown --path src/
+          infracost breakdown --path src/ \
+                              --format json \
+                              --out-file /tmp/infracost-master.json
 
       - name: Checkout PR branch
         uses: actions/checkout@v3
@@ -111,7 +113,7 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           infracost diff --path src/ \
-                         --compare-to /tmp/infracost-master.json \
+                         --compare-to /tmp/infracost-master.json
 
       - name: Infracost on PR branch
         if: github.event_name == 'pull_request'
