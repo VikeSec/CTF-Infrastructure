@@ -97,13 +97,13 @@ jobs:
           ref: ${{ github.event.pull_request.base.ref }}
 
       - name: Checkout code
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'push'
         uses: actions/checkout@v3
         with:
           fetch-depth: 2
         
       - name: Checkout previous commit
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'push'
         run: git checkout HEAD~
 
       - name: Setup Infracost
@@ -121,7 +121,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Infracost on commit
-        if: github.event_name == 'pull_request' #####CHANGE ME
+        if: github.event_name == 'push'
         run: |
           infracost diff --path src/ \
                          --compare-to /tmp/infracost-master.json
