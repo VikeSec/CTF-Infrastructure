@@ -52,3 +52,15 @@ jobs:
         uses: actions/checkout@v3
       - name: Run ShellCheck
         uses: ludeeus/action-shellcheck@1.1.0
+
+  languagetool:
+    name: Language Tool
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - uses: reviewdog/action-languagetool@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          language: en-CA
+          level: warning
