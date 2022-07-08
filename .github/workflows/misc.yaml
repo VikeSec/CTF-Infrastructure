@@ -39,16 +39,31 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Download actionlint
-        id: get_actionlint
-        run: bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
-      - name: Run actionlint
-        run: ${{ steps.get_actionlint.outputs.executable }} -color
+        uses: reviewdog/action-actionlint@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          fail_on_error: true
 
   shellcheck:
+    name: YAML Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: shellcheck
+        uses: reviewdog/action-shellcheck@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          fail_on_error: true
+
+  yamllint:
     name: Shellcheck
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@1.1.0
+      - name: yamllint
+        uses: reviewdog/action-yamllint@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          fail_on_error: true
