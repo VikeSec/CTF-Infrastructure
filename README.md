@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD033 MD013 -->
 <h1 align="center">
     <br>
         CTF Infrastruture
@@ -14,6 +15,7 @@
         >
     </a>
 </p>
+<!-- markdownlint-enable -->
 
 ---
 
