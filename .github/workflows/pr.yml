@@ -19,8 +19,6 @@ jobs:
     name: PR Lint
     runs-on: ubuntu-latest
     steps:
-    - uses: seferov/pr-lint-action@master
+    - uses: seferov/pr-lint-action@v1.1.2
       with:
         title-regex: '^\[\w*\](\ )'
-        title-regex-flags: 'g'
-        error-message: 'Add [] to beginning of PR title'
