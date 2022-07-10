@@ -19,6 +19,7 @@
 
 ---
 
+<!-- markdownlint-disable-next-line MD002 -->
 ## About
 
 CTF-Infrastructure is currently in early Alpha.

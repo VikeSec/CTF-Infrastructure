@@ -1,0 +1,26 @@
+name: PR
+
+on:
+  pull_request:
+
+jobs:
+  labeler:
+    name: PR Labeler
+    permissions: 
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/labeler@v4
+        with: 
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+
+  pr-lint:
+    name: PR Lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: seferov/pr-lint-action@master
+      with:
+        title-regex: '^\[\d*\](\ )'
+        title-regex-flags: 'g'
+        error-message: 'Add [] to beginning of PR title'
