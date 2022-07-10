@@ -1,4 +1,4 @@
-name: "Terraform"
+name: Terraform
 
 on:
   push:
@@ -8,13 +8,13 @@ on:
 
 jobs:
   terraform_mod:
-    name: "Terraform Modifications"
+    name: Terraform Modifications
     runs-on: ubuntu-latest
     steps:
       - run: echo "Terraform modified"; exit 0
 
   terraform_fmt:
-    name: "Terraform Format"
+    name: Terraform Format
     runs-on: ubuntu-latest
     needs: terraform_mod
     defaults:
@@ -60,7 +60,7 @@ jobs:
           level: "warning"
 
   terraform_validate:
-    name: "Terraform Validate"
+    name: Terraform Validate
     runs-on: ubuntu-latest
     needs: terraform_mod
     defaults:
@@ -84,7 +84,7 @@ jobs:
         run: terraform validate -no-color
 
   terraform_plan:
-    name: "Terraform Plan"
+    name: Terraform Plan
     runs-on: ubuntu-latest
     needs: terraform_validate
     defaults:
@@ -110,8 +110,8 @@ jobs:
         continue-on-error: true
 
   infracost:
-    runs-on: ubuntu-latest
     name: Run Infracost
+    runs-on: ubuntu-latest
     needs: terraform_validate
     steps:
       - name: Checkout master
