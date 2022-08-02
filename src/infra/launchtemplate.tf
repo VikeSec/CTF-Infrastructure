@@ -23,6 +23,10 @@ resource "aws_launch_template" "k3s_master" {
     associate_public_ip_address = true
     security_groups             = [aws_security_group.allow-strict.id]
   }
+
+  metadata_options {
+    http_tokens = "required"
+  }
 }
 
 resource "aws_launch_template" "k3s_worker" {
@@ -49,5 +53,8 @@ resource "aws_launch_template" "k3s_worker" {
   network_interfaces {
     associate_public_ip_address = true
     security_groups             = [aws_security_group.allow-strict.id]
+  }
+  metadata_options {
+    http_tokens = "required"
   }
 }
