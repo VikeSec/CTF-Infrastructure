@@ -49,4 +49,4 @@ jobs:
       - name: Markdown Link Check
         uses: gaurav-nelson/github-action-markdown-link-check@1.0.13
         with:
-          check-modified-files-only: ${{ env.IsPR }}
+          check-modified-files-only: "${{ env.IsPR }}"
