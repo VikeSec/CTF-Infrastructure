@@ -6,6 +6,9 @@ on:
       - master
   pull_request:
 
+env:
+  IsPR: "no"
+
 jobs:
   markdownlint:
     name: Markdown Lint
@@ -30,3 +33,20 @@ jobs:
           github_token: ${{ secrets.github_token }}
           language: en-CA
           level: warning
+
+  markdown-link-check:
+    name: Markdown Link Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Action
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Check if PR
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "IsPR='yes'" >> $GITHUB_ENV
+      - name: Markdown Link Check
+        uses: gaurav-nelson/github-action-markdown-link-check@1.0.13
+        with:
+          check-modified-files-only: ${{ env.IsPR }}
