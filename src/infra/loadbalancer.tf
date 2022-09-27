@@ -1,7 +1,7 @@
 resource "aws_lb" "k3s-master-lb" {
   name               = "k3s-master-tcp-lb"
   load_balancer_type = "network"
-  internal           = "false"
+  internal           = "false" #tfsec:ignore:aws-elb-alb-not-public
   subnets            = var.vpc_subnets
 
   enable_cross_zone_load_balancing = true
