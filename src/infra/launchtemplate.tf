@@ -5,7 +5,7 @@ resource "aws_launch_template" "k3s_master" {
   user_data     = data.template_cloudinit_config.k3s_master.rendered
 
   iam_instance_profile {
-    name = var.instance_profile_name
+    name = aws_iam_instance_profile.ec2_iam_profile.name
   }
 
   block_device_mappings {
@@ -32,7 +32,7 @@ resource "aws_launch_template" "k3s_worker" {
   user_data     = data.template_cloudinit_config.k3s_worker.rendered
 
   iam_instance_profile {
-    name = var.instance_profile_name
+    name = aws_iam_instance_profile.ec2_iam_profile.name
   }
 
   block_device_mappings {

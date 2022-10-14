@@ -35,7 +35,9 @@ resource "aws_security_group" "allow-strict" {
       from_port   = port.value
       to_port     = port.value
       protocol    = "tcp"
-      cidr_blocks = ["10.0.0.0/8"]
+      ## BAD BAD BAD, DON'T MERGE THIS
+      cidr_blocks = ["10.0.0.0/8", "172.31.16.0/20"]
+      ##############################################
     }
   }
 
