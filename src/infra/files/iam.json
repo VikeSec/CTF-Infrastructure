@@ -15,7 +15,9 @@
         "elasticloadbalancing:*"
       ],
       "Effect": "Allow",
-      "Resource": ["*"]
+      "Resource": [
+        "*"
+      ]
     }
   ]
 }

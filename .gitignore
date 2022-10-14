@@ -18,3 +18,9 @@ override.tf
 *_override.tf
 
 bak
+
+# Secret, shhhhhhh!
+.env
+.secrets
+*.bak
+NOTES.md
