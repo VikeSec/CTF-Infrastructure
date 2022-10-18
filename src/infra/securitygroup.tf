@@ -32,9 +32,9 @@ resource "aws_security_group" "allow-strict" {
     iterator = port
     for_each = var.local_ingress_ports
     content {
-      from_port   = port.value
-      to_port     = port.value
-      protocol    = "tcp"
+      from_port = port.value
+      to_port   = port.value
+      protocol  = "tcp"
       ## BAD BAD BAD, DON'T MERGE THIS
       cidr_blocks = ["10.0.0.0/8", "172.31.16.0/20"]
       ##############################################
