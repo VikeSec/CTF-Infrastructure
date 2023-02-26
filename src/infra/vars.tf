@@ -28,7 +28,7 @@ variable "cluster_name" {
 
 variable "vpc_id" {
   type        = string
-  default     = "vpc-fd592185"
+  default     = "vpc-0151db5d01a7b37d1"
   description = "The vpc id"
 }
 
@@ -46,21 +46,21 @@ variable "vpc_subnet_cidr" {
 
 variable "vpc_subnets" {
   type        = list(any)
-  default     = ["subnet-6dbb6e15", "subnet-ca7f8880", "subnet-e06cc8bd", "subnet-39c79b12"]
+  default     = ["subnet-0621c8f7f75c9ad6d", "subnet-0f7e3c004c2aa90d3", "subnet-0f3149d253b5820ed", "subnet-09439ba287fcdecec"]
   description = "The vpc subnets ids"
 }
 
 variable "ingress_ports" {
   type        = list(number)
   description = "list of ingress ports"
-  ## BAD BAD BAD, DON'T MERGE THIS
-  default = [22, 80, 443, 6443]
+  ## TODO: remove SSH
+  default = [22, 80, 443, 31337]
 }
 
 variable "local_ingress_ports" {
   type        = list(number)
   description = "list of local ingress ports"
-  default     = [1025, 6443]
+  default     = [22, 1025, 6443]
 }
 
 # tr -dc "[:alnum:]" < /dev/urandom | head -c52; echo
@@ -71,7 +71,7 @@ variable "k3s_token" {
 }
 
 variable "k3s_version" {
-  default     = "v1.25.2+k3s1"
+  default     = "v1.26.1+k3s1"
   type        = string
   description = "k3s version to deploy"
 }

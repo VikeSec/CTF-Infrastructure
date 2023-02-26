@@ -15,8 +15,8 @@ provider_id="$(curl -s http://169.254.169.254/latest/meta-data/placement/availab
 first_instance=$(aws ec2 describe-instances --filters Name=tag-value,Values=k3s-master Name=instance-state-name,Values=running --query 'sort_by(Reservations[].Instances[], &LaunchTime)[:-1].[InstanceId]' --output text | head -n1)
 instance_id=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
 
-hostnamectl set-hostname $instance_id
-hostname $instance_id
+hostnamectl set-hostname "$instance_id"
+hostname "$instance_id"
 
 if [[ "$first_instance" == "$instance_id" ]]; then
   until (curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION="${k3s_version}" K3S_TOKEN="${k3s_token}" sh -s - --cluster-init --node-ip "$local_ip" --advertise-address "$local_ip" --flannel-iface "$flannel_iface" --tls-san "${k3s_tls_san}" --kubelet-arg="provider-id=aws:///$provider_id"); do
@@ -34,3 +34,6 @@ until kubectl get pods -A | grep 'Running'; do
   echo 'Waiting for k3s startup'
   sleep 5
 done
+
+kubectl taint nodes "$instance_id" node-role.kubernetes.io/master=:NoSchedule
+# kubectl get nodes -o jsonpath="{range .items[*]}{.metadata.name} {.spec.taints[?(@.effect=='NoSchedule')].effect}{\"\n\"}{end}"
