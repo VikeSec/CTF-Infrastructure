@@ -1,7 +1,7 @@
 resource "aws_lb" "k3s-master-lb" {
   name               = "k3s-master-tcp-lb"
   load_balancer_type = "network"
-  internal           = "false"
+  internal           = "false" ## TODO: make internal
   subnets            = var.vpc_subnets
 
   enable_cross_zone_load_balancing = true
@@ -17,10 +17,6 @@ resource "aws_autoscaling_attachment" "target" {
   autoscaling_group_name = aws_autoscaling_group.k3s_masters_asg.name
   lb_target_group_arn    = aws_lb_target_group.k3s-master-tg.arn
 }
-
-###############
-###  RULES  ###
-###############
 
 resource "aws_lb_listener" "k3s-master-listener" {
   load_balancer_arn = aws_lb.k3s-master-lb.arn
