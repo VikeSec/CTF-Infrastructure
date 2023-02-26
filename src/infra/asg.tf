@@ -10,7 +10,7 @@ resource "aws_autoscaling_group" "k3s_masters_asg" {
 
   mixed_instances_policy {
     instances_distribution {
-      on_demand_base_capacity                  = 0
+      on_demand_base_capacity                  = 1
       on_demand_percentage_above_base_capacity = 20
       spot_allocation_strategy                 = "capacity-optimized"
     }
@@ -45,7 +45,7 @@ resource "aws_autoscaling_group" "k3s_masters_asg" {
 
   desired_capacity          = 3
   min_size                  = 3
-  max_size                  = 4
+  max_size                  = 7
   health_check_grace_period = 300
   health_check_type         = "EC2"
   force_delete              = true
@@ -53,18 +53,6 @@ resource "aws_autoscaling_group" "k3s_masters_asg" {
   tag {
     key                 = "Name"
     value               = "k3s-master"
-    propagate_at_launch = true
-  }
-
-  tag {
-    key                 = "k8s.io/cluster-autoscaler/enabled"
-    value               = ""
-    propagate_at_launch = true
-  }
-
-  tag {
-    key                 = "k8s.io/cluster-autoscaler/${var.cluster_name}"
-    value               = ""
     propagate_at_launch = true
   }
 }
@@ -110,7 +98,7 @@ resource "aws_autoscaling_group" "k3s_workers_asg" {
 
   desired_capacity          = 3
   min_size                  = 3
-  max_size                  = 4
+  max_size                  = 7
   health_check_grace_period = 300
   health_check_type         = "EC2"
   force_delete              = true

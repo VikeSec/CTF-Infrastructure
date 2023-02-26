@@ -1,13 +1,14 @@
 variable "AWS_REGION" {
-  default     = "us-west-1"
+  default     = "us-west-2"
   description = "AWS Zone"
 }
 
 variable "AMIS" {
   type = map(string)
   default = {
+    us-west-2 = "ami-0a22ed271d3dbf544"
+
     us-east-1 = "ami-0ae74ae9c43584639"
-    us-west-2 = "ami-09f5b7791a4e85729"
     eu-west-1 = "ami-0da36f7f059b7086e"
     us-west-1 = "ami-0f961012aa6154e3a"
   }
@@ -27,14 +28,8 @@ variable "cluster_name" {
 
 variable "vpc_id" {
   type        = string
-  default     = "vpc-a56acdc3"
+  default     = "vpc-0151db5d01a7b37d1"
   description = "The vpc id"
-}
-
-variable "instance_profile_name" {
-  type        = string
-  default     = "k8s-EC2-IAM-Role"
-  description = "The name of the instance profile to use"
 }
 
 variable "my_public_ip_cidr" {
@@ -51,20 +46,21 @@ variable "vpc_subnet_cidr" {
 
 variable "vpc_subnets" {
   type        = list(any)
-  default     = ["subnet-dc6cce86", "subnet-8a0f99ec"]
+  default     = ["subnet-0621c8f7f75c9ad6d", "subnet-0f7e3c004c2aa90d3", "subnet-0f3149d253b5820ed", "subnet-09439ba287fcdecec"]
   description = "The vpc subnets ids"
 }
 
 variable "ingress_ports" {
   type        = list(number)
   description = "list of ingress ports"
-  default     = [22, 80, 443]
+  ## TODO: remove SSH
+  default = [22, 80, 443, 31337]
 }
 
 variable "local_ingress_ports" {
   type        = list(number)
   description = "list of local ingress ports"
-  default     = [1025, 6443]
+  default     = [22, 1025, 6443]
 }
 
 # tr -dc "[:alnum:]" < /dev/urandom | head -c52; echo
@@ -73,3 +69,17 @@ variable "k3s_token" {
   type        = string
   description = "Override to set k3s cluster registration token"
 }
+
+variable "k3s_version" {
+  default     = "v1.26.1+k3s1"
+  type        = string
+  description = "k3s version to deploy"
+}
+
+# resource "random_string" "lower" {
+#   length  = 16
+#   upper   = false
+#   lower   = true
+#   number  = false
+#   special = false
+# }

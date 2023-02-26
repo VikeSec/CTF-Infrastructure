@@ -1,4 +1,4 @@
 #cloud-config
 
 runcmd:
-- echo "Running; Done"
+  - echo "Running; Done"
