@@ -10,7 +10,7 @@ rm -rf aws awscliv2.zip
 
 local_ip=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
 flannel_iface=$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)')
-provider_id="$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)/$(curl -s http://169.254.169.254/latest/meta-data/instance-id)"
+provider_id=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)/$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
 
 first_instance=$(aws ec2 describe-instances --filters Name=tag-value,Values=k3s-master Name=instance-state-name,Values=running --query 'sort_by(Reservations[].Instances[], &LaunchTime)[:-1].[InstanceId]' --output text | head -n1)
 instance_id=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
