@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Mock an aws pubkey
-ssh-keygen -q -t rsa -N '' -f ~/.ssh/aws <<<y
+ssh-keygen -q -t rsa -N '' -f ~/.ssh/ctf <<<y
 
 # Remove the requirement for AWS creds
 cat >/tmp/AWS.mock <<EOF

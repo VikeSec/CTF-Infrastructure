@@ -3,6 +3,12 @@ variable "AWS_REGION" {
   description = "AWS Zone"
 }
 
+variable "DOMAIN_NAME" {
+}
+
+variable "CTFD_SUBDOMAIN_NAME" {
+}
+
 variable "AMIS" {
   type = map(string)
   default = {
@@ -16,7 +22,7 @@ variable "AMIS" {
 }
 
 variable "PUBLIC_KEY" {
-  default     = "~/.ssh/aws.pub"
+  default     = "~/.ssh/ctf.pub"
   description = "Public key for AWS"
 }
 
@@ -54,7 +60,7 @@ variable "ingress_ports" {
   type        = list(number)
   description = "list of ingress ports"
   ## TODO: remove SSH
-  default = [22, 80, 443, 31337]
+  default = [22, 80, 443, 6443, 31337]
 }
 
 variable "local_ingress_ports" {
