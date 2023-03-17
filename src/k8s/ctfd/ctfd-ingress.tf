@@ -1,10 +1,12 @@
-resource "kubernetes_ingress_v1" "traefik_dashboard" {
+resource "kubernetes_ingress_v1" "ctfd_ingress" {
   metadata {
     name      = "traefik-ingress"
     namespace = "ctfd"
 
     annotations = {
-      "kubernetes.io/ingress.class" = "traefik"
+      "kubernetes.io/ingress.class"                      = "traefik"
+      "traefik.ingress.kubernetes.io/router.entrypoints" = "web"
+      # "traefik.ingress.kubernetes.io/router.entrypoints" = "websecure"
     }
   }
 
@@ -19,9 +21,11 @@ resource "kubernetes_ingress_v1" "traefik_dashboard" {
     }
 
     rule {
+      # host = "ctf.vikesec.ca"
       http {
         path {
-          path = "/"
+          path      = "/"
+          path_type = "Prefix"
           backend {
             service {
               name = kubernetes_service.ctfd.metadata[0].name
