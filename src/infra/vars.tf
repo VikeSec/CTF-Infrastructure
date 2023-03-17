@@ -3,6 +3,12 @@ variable "AWS_REGION" {
   description = "AWS Zone"
 }
 
+variable "DOMAIN_NAME" {
+}
+
+variable "CTFD_SUBDOMAIN_NAME" {
+}
+
 variable "AMIS" {
   type = map(string)
   default = {

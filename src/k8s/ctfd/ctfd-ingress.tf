@@ -21,7 +21,7 @@ resource "kubernetes_ingress_v1" "ctfd_ingress" {
     }
 
     rule {
-      # host = "ctf.vikesec.ca"
+      host = format("%s.%s", var.CTFD_SUBDOMAIN_NAME, var.DOMAIN_NAME)
       http {
         path {
           path      = "/"

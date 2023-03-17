@@ -2,7 +2,9 @@ module "infra" {
   count  = 1
   source = "./infra"
 
-  AWS_REGION = var.AWS_REGION
+  AWS_REGION          = var.AWS_REGION
+  DOMAIN_NAME         = var.DOMAIN_NAME
+  CTFD_SUBDOMAIN_NAME = var.CTFD_SUBDOMAIN_NAME
 }
 
 resource "null_resource" "kubeconfig" {
@@ -21,6 +23,9 @@ EOT
 module "k8s" {
   count  = 1
   source = "./k8s"
+
+  DOMAIN_NAME         = var.DOMAIN_NAME
+  CTFD_SUBDOMAIN_NAME = var.CTFD_SUBDOMAIN_NAME
 }
 
 module "challs" {

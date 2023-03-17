@@ -8,7 +8,6 @@ resource "aws_lb" "k3s-public-lb" {
 }
 
 resource "aws_autoscaling_attachment" "public_target" {
-
   depends_on = [
     aws_autoscaling_group.k3s_masters_asg,
     aws_lb_target_group.k3s-public-tg

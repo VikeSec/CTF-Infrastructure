@@ -8,12 +8,12 @@ terraform {
 }
 
 data "cloudflare_zone" "vikesecca" {
-  name = "vikesec.ca"
+  name = var.DOMAIN_NAME
 }
 
 resource "cloudflare_record" "cname" {
   zone_id = data.cloudflare_zone.vikesecca.id
-  name    = "staging-ctf"
+  name    = var.CTFD_SUBDOMAIN_NAME
   value   = aws_lb.k3s-public-lb.dns_name
   type    = "CNAME"
   proxied = true
